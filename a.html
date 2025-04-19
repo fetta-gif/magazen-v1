@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar-fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كتالوج الدورات التدريبية | Catalogue Formations</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Font settings */
+    .font-ar { font-family: 'Tajawal', sans-serif; }
+    .font-fr { font-family: 'Poppins', sans-serif; }
+
+    /* --- Animation Keyframes --- */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+    /* --- Classes to Trigger Animations (Added by JS) --- */
+    .do-fade-in { animation: fadeIn 0.8s ease-in-out forwards; }
+    .do-scale-in { animation: scaleIn 0.6s ease-out forwards; }
+
+    /* RTL support */
+    .rtl { direction: rtl; text-align: right; }
+    .ltr { direction: ltr; text-align: left; }
+
+    /* Page sections */
+    .page-section { min-height: 80vh; overflow: hidden; page-break-inside: avoid; opacity: 0; }
+    .page-section.do-fade-in { opacity: 1; }
+
+    /* Infographic styles */
+    .infographic-item { transition: transform 0.3s ease, box-shadow 0.3s ease; opacity: 0; transform: scale(0.9); }
+    .infographic-item.do-scale-in { opacity: 1; transform: scale(1); }
+    .infographic-item:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 10; }
+
+    /* Course Table Styling */
+    .course-table-wrapper { opacity: 0; transform: scale(0.95); }
+    .course-table-wrapper.do-scale-in { opacity: 1; transform: scale(1); }
+    .course-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    .course-table th, .course-table td { padding: 0.75rem 1rem; border: 1px solid #e5e7eb; vertical-align: middle; }
+    .course-table th { background-color: #f3f4f6; color: #1f2937; font-weight: 600; text-align: center; }
+    .course-table tr:nth-child(even) { background-color: #f9fafb; }
+    .course-table tr:hover { background-color: #f0f9ff; }
+    .rtl .course-table th, .rtl .course-table td { text-align: right; }
+    .ltr .course-table th, .ltr .course-table td { text-align: left; }
+
+    /* Language display control */
+    .lang-ar { display: none; }
+    .lang-fr { display: none; }
+
+    /* Gradient backgrounds */
+    .bg-gradient-blue { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+    .bg-gradient-cover { background: linear-gradient(135deg, #1e3a8a, #3b82f6, #2563eb); background-size: 300% 300%; animation: gradientBG 8s ease infinite; }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #1e40af; }
+
+    /* Circle animation */
+    .circle-animation { position: absolute; border-radius: 50%; background-color: rgba(255, 255, 255, 0.1); animation: circleGrow 4s infinite alternate; }
+    @keyframes circleGrow { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.5); opacity: 0.1; } }
+
+    /* --- Print Styles --- */
+    @media print { /* Print styles remain the same */ }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Language Selection Screen -->
+  <section id="language-selection" class="page-section bg-gradient-blue text-white relative overflow-hidden do-fade-in">
+     <!-- Content remains the same -->
+     <div class="circle-animation" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div><div class="circle-animation" style="width: 500px; height: 500px; bottom: -250px; right: -250px;"></div><div class="circle-animation" style="width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div><div class="container mx-auto h-screen flex flex-col items-center justify-center px-4 z-10 relative"><div class="text-center mb-12 do-fade-in" style="animation-delay: 0.2s;"><h1 class="text-5xl md:text-6xl font-bold mb-8 leading-tight"><span class="font-ar">كتالوج الدورات التدريبية</span><br><span class="font-fr">CATALOGUE FORMATIONS</span></h1><p class="text-xl md:text-2xl opacity-90"><span class="font-ar">اختر لغة العرض المفضلة لديك</span><br><span class="font-fr">Choisissez votre langue préférée</span></p></div><div class="flex flex-col md:flex-row gap-6 do-scale-in" style="animation-delay: 0.5s;"><button id="select-ar" class="bg-white text-blue-600 px-8 py-5 rounded-xl shadow-lg font-bold text-xl hover:bg-blue-50 transition duration-300 transform hover:-translate-y-1 font-ar min-w-[200px]">العربية</button><button id="select-fr" class="bg-white text-blue-600 px-8 py-5 rounded-xl shadow-lg font-bold text-xl hover:bg-blue-50 transition duration-300 transform hover:-translate-y-1 font-fr min-w-[200px]">Français</button></div></div>
+  </section>
+
+  <!-- ***** START Content Container - Initially hidden ***** -->
+  <div id="content" class="hidden">
+     <!-- All sections (Cover, Index, HR, Management, etc.) remain the same -->
+       <section id="cover" class="page-section bg-gradient-cover text-white relative h-screen"><div class="container mx-auto h-full flex flex-col items-center justify-center px-4"><div class="text-center"><div class="mb-6 pulse"><div class="bg-white bg-opacity-20 rounded-full w-24 h-24 mx-auto flex items-center justify-center"><i class="fas fa-graduation-cap text-5xl text-white"></i></div></div><h1 class="lang-ar font-ar text-5xl md:text-7xl font-bold mb-6 rtl">كتالوج الدورات التدريبية</h1><h1 class="lang-fr font-fr text-5xl md:text-7xl font-bold mb-6 ltr">CATALOGUE FORMATIONS</h1><div class="lang-ar rtl max-w-2xl mx-auto"><p class="text-2xl mb-10">معهد متخصص في التدريب المهني لبناء مستقبلك</p><button id="start-ar" class="mt-6 bg-white text-blue-600 px-8 py-4 rounded-lg shadow-xl font-bold text-xl hover:bg-blue-50 transition duration-300 transform hover:-translate-y-1">ابدأ التصفح</button></div><div class="lang-fr ltr max-w-2xl mx-auto"><p class="text-2xl mb-10">Institut spécialisé dans la formation professionnelle pour construire votre avenir</p><button id="start-fr" class="mt-6 bg-white text-blue-600 px-8 py-4 rounded-lg shadow-xl font-bold text-xl hover:bg-blue-50 transition duration-300 transform hover:-translate-y-1">Commencer</button></div></div></div></section>
+       <section id="index" class="page-section bg-white py-20"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-16 text-center rtl text-blue-700">فهرس الدورات التدريبية</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-16 text-center ltr text-blue-700">Index des Formations</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"><div class="infographic-item bg-blue-50 p-6 rounded-2xl shadow-lg"><div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-users text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">إدارة الموارد البشرية</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Gestion des RH</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">14 دورة</span><span class="lang-fr ltr">14 formations</span></p><a href="#hr-management" class="block text-blue-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div><div class="infographic-item bg-purple-50 p-6 rounded-2xl shadow-lg"><div class="bg-purple-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-chart-line text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">إدارة الأعمال / الجودة</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Management / Qualité</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">31 دورة</span><span class="lang-fr ltr">31 formations</span></p><a href="#business-management" class="block text-purple-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div><div class="infographic-item bg-green-50 p-6 rounded-2xl shadow-lg"><div class="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-coins text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">المالية / المحاسبة / التدقيق</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Finance / Compta / Audit</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">26 دورة</span><span class="lang-fr ltr">26 formations</span></p><a href="#finance" class="block text-green-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div><div class="infographic-item bg-red-50 p-6 rounded-2xl shadow-lg"><div class="bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-gavel text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">قانون الأعمال</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Droit des Affaires</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">14 دورة</span><span class="lang-fr ltr">14 formations</span></p><a href="#business-law" class="block text-red-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div><div class="infographic-item bg-yellow-50 p-6 rounded-2xl shadow-lg"><div class="bg-yellow-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-truck text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">اللوجستية والنقل</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Logistique & Transport</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">6 دورات</span><span class="lang-fr ltr">6 formations</span></p><a href="#logistics" class="block text-yellow-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div><div class="infographic-item bg-indigo-50 p-6 rounded-2xl shadow-lg"><div class="bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-plus-circle text-2xl"></i></div><h3 class="lang-ar font-ar text-xl font-semibold text-center mb-2 rtl">أخرى</h3><h3 class="lang-fr font-fr text-xl font-semibold text-center mb-2 ltr">Autres</h3><p class="text-gray-600 text-center mb-3 text-sm"><span class="lang-ar rtl">1 دورة</span><span class="lang-fr ltr">1 formation</span></p><a href="#others" class="block text-indigo-600 text-center hover:underline font-semibold"><span class="lang-ar rtl">عرض الدورات <i class="fas fa-arrow-left mr-1"></i></span><span class="lang-fr ltr">Voir les cours <i class="fas fa-arrow-right ml-1"></i></span></a></div></div></div></section>
+       <section id="hr-management" class="page-section py-20 bg-blue-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-blue-700 text-center rtl">إدارة الموارد البشرية</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-blue-700 text-center ltr">Gestion des Ressources Humaines</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">إدارة المهارات وتطوير إطار الكفاءات</span><span class="lang-fr">Gestion des compétences et élaboration du référentiel</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">2</td><td><span class="lang-ar">كيفية بناء سلم الرواتب ونظام التعويض</span><span class="lang-fr">Comment construire une grille de salaire</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">3</td><td><span class="lang-ar">إعداد كشوف المرتبات؛ كيفية حساب راتب الموظف</span><span class="lang-fr">Pratique de la paie ; calcul de la paie</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">4</td><td><span class="lang-ar">إدارة الخدمات الاجتماعية في الشركة</span><span class="lang-fr">La Gestion Des Œuvres Sociales Dans L'entreprise</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">5</td><td><span class="lang-ar">اللوائح الداخلية للشركة: الاعداد والتحديث</span><span class="lang-fr">Le règlement intérieur de l'entreprise</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">6</td><td><span class="lang-ar">مقابلة العمل: التحضير والتسيير</span><span class="lang-fr">L'entretien d'embauche : préparation et conduite</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">7</td><td><span class="lang-ar">الإدارة التقديرية للوظائف والمهارات GPEC</span><span class="lang-fr">La gestion prévisionnelle des emplois et compétences GPEC</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">8</td><td><span class="lang-ar">نظام تقييم الأداء SAP</span><span class="lang-fr">Le système d'appréciation des performances SAP</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">9</td><td><span class="lang-ar">تصميم وتنفيذ خطة اتصال لإدارة الموارد البشرية</span><span class="lang-fr">Concevoir et mettre en œuvre un plan de communication GRH</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">10</td><td><span class="lang-ar">تقنيات الاستقبال</span><span class="lang-fr">Techniques d'accueils</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">11</td><td><span class="lang-ar">التحرير الإداري</span><span class="lang-fr">Améliorer ses écrits professionnels</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">12</td><td><span class="lang-ar">إدارة النزاعات الفردية والجماعية في العمل</span><span class="lang-fr">La gestion des conflits individuels et collectifs</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">13</td><td><span class="lang-ar">تدقيق وظيفة الموارد البشرية</span><span class="lang-fr">Auditer la fonction RH</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">14</td><td><span class="lang-ar">إدارة الضغط / إدارة الوقت</span><span class="lang-fr">La gestion du stress / La gestion du temps</span></td><td class="text-center">5j</td></tr></tbody></table></div></div></section>
+       <section id="business-management" class="page-section py-20 bg-purple-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-purple-700 text-center rtl">إدارة الأعمال / إدارة الجودة</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-purple-700 text-center ltr">Management / Management de la Qualité</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">اليقظة الاستراتيجية والذكاء الاقتصادي</span><span class="lang-fr">Veille stratégique et intelligence économique</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">2</td><td><span class="lang-ar">حوكمة الشركات</span><span class="lang-fr">Gouvernance d'entreprise</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">3</td><td><span class="lang-ar">الابتكار وريادة الأعمال</span><span class="lang-fr">Innovation et entrepreneuriat</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">4</td><td><span class="lang-ar">الذكاء وإدارة الأعمال العاطفية</span><span class="lang-fr">Intelligence et gestion émotionnelles</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">5</td><td><span class="lang-ar">القيادي وشخصية القائد</span><span class="lang-fr">Leadership et personnalité du dirigeant</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">6</td><td><span class="lang-ar">اتخاذ القرار عملية عقلانية</span><span class="lang-fr">Prise de décision processus rationnel</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">7</td><td><span class="lang-ar">كيف تحفز فريقك</span><span class="lang-fr">Comment motiver son équipe</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">8</td><td><span class="lang-ar">تكنولوجيا المعلومات والاتصالات - الذكاء الاصطناعي</span><span class="lang-fr">Technique de l'information et communication TIC –IA</span></td><td class="text-center">2j</td></tr><tr><td class="text-center">9</td><td><span class="lang-ar">بناء وإدارة نظام الإدارة المتكامل. TQM</span><span class="lang-fr">Construire et piloter son système de management intégré. TQM</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">10</td><td><span class="lang-ar">بناء الفريق (Team building)</span><span class="lang-fr">Team building</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">11</td><td><span class="lang-ar">إدارة أعمال المشاريع</span><span class="lang-fr">Le management de Project</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">12</td><td><span class="lang-ar">إدارة المخاطر (PMP)</span><span class="lang-fr">Le management des risques PMP</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">13</td><td><span class="lang-ar">تطوير التعاون داخل فريقك / الذكاء الجماعي</span><span class="lang-fr">Développer la collaboration / intelligence collective</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">14</td><td><span class="lang-ar">المديرون: ممارسة التفكير التصميمي</span><span class="lang-fr">Managers pratiquez le design thinking</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">15</td><td><span class="lang-ar">إدارة الأرشيف</span><span class="lang-fr">Gestion des archives</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">16</td><td><span class="lang-ar">التسيير بطريقة AMDEC</span><span class="lang-fr">Gérer par la méthode AMDEC</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">17</td><td><span class="lang-ar">تصميم المشروع والتفاوض ومراقبة تنفيذه</span><span class="lang-fr">Concevoir, négocier et suivre l'exécution d'un projet</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">18</td><td><span class="lang-ar">تخطيط موارد المؤسسات (ERP) والإدارة التشغيلية</span><span class="lang-fr">Les ERP et la gestion opérationnelle</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">19</td><td><span class="lang-ar">تسيير الإنتاج</span><span class="lang-fr">La Gestion De La Production</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">20</td><td><span class="lang-ar">إدارة الأعمال التشغيلية</span><span class="lang-fr">Le Management Opérationnel</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">21</td><td><span class="lang-ar">تدريب وتسيير فريق العمل</span><span class="lang-fr">Management Et Coaching D'une Equipe</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">22</td><td><span class="lang-ar">إدارة الأعمال التشاركية</span><span class="lang-fr">Management Participatif</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">23</td><td><span class="lang-ar">الاستراتيجية وخطة العمل</span><span class="lang-fr">Stratégie Et Business Plan</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">24</td><td><span class="lang-ar">تدقيق الجودة الداخلية</span><span class="lang-fr">Audit Qualité Interne</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">25</td><td><span class="lang-ar">نظام إدارة الجودة</span><span class="lang-fr">Système De Management De La Qualité</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">26</td><td><span class="lang-ar">الصحة والسلامة والبيئة HSE</span><span class="lang-fr">Hygiène, Sécurité et Environnement HSE</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">27</td><td><span class="lang-ar">ضمان الجودة في الصناعات الغذائية</span><span class="lang-fr">Assurance Qualité dans l'Agroalimentaire</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">28</td><td><span class="lang-ar">إتقان معيار ISO 9001</span><span class="lang-fr">Maitrise de la Norme ISO 9001</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">29</td><td><span class="lang-ar">أنظمة الإدارة البيئية (ISO 14001)</span><span class="lang-fr">Systèmes Management Environnement (ISO 14001)</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">30</td><td><span class="lang-ar">إدارة المخاطر؛ (ISO 31000)</span><span class="lang-fr">Management des Risques ; (ISO 31000)</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">31</td><td><span class="lang-ar">معيار ISO 22000؛ تنفيذ HACCP فعال</span><span class="lang-fr">La Norme ISO 22000 ; Mettre en Place un HACCP Efficace</span></td><td class="text-center">5j</td></tr></tbody></table></div></div></section>
+       <section id="finance" class="page-section py-20 bg-green-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-green-700 text-center rtl">المالية / المحاسبة / التدقيق</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-green-700 text-center ltr">Finance / Comptabilité / Audit</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">المحاسبة المالية</span><span class="lang-fr">Comptabilité générale</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">2</td><td><span class="lang-ar">إتقان إجراءات إعداد وتنفيذ أعمال الجرد</span><span class="lang-fr">Maitriser les procédures des travaux d'inventaire</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">3</td><td><span class="lang-ar">إعداد البيانات المالية السنوية (SCF / IAS / IFRS)</span><span class="lang-fr">Préparer & clôturer les comptes annuels (SCF / IAS / IFRS)</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">4</td><td><span class="lang-ar">محاسبة التكاليف</span><span class="lang-fr">Comptabilité analytique</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">5</td><td><span class="lang-ar">إدارة الخزينة</span><span class="lang-fr">Gestion de la trésorerie</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">6</td><td><span class="lang-ar">خطة العمل الاقتصادية والمالية</span><span class="lang-fr">Le business plan économique et financier</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">7</td><td><span class="lang-ar">إدارة الميزانية</span><span class="lang-fr">Gestion budgétaire</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">8</td><td><span class="lang-ar">الذكاء الاقتصادي والمالي</span><span class="lang-fr">L'intelligence économique et financière</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">9</td><td><span class="lang-ar">التشخيص، التحليل، التسيير المالي</span><span class="lang-fr">Diagnostic, Analyse et gestion financière</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">10</td><td><span class="lang-ar">الأصول العينية والغير عينية والمالية</span><span class="lang-fr">Les immobilisations corporelles, incorporelles et financières</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">11</td><td><span class="lang-ar">تحليل القوائم المالية (SCF / IAS / IFRS)</span><span class="lang-fr">Analyse des états financiers (SCF / IAS / IFRS)</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">12</td><td><span class="lang-ar">تصميم وتطوير لوحة التحكم المالية</span><span class="lang-fr">Concevoir et faire évoluer son tableau de bord financier</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">13</td><td><span class="lang-ar">المالية لغير المتخصصين</span><span class="lang-fr">Finance pour les non financier</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">14</td><td><span class="lang-ar">الأحكام الجديدة لقانون المالية</span><span class="lang-fr">Les nouvelles dispositions de la loi de finance</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">15</td><td><span class="lang-ar">ممارسات معايير IAS / IFRS</span><span class="lang-fr">Pratiques des normes IAS / IFRS</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">16</td><td><span class="lang-ar">تقنيات الدفع الدولية</span><span class="lang-fr">Techniques de payements internationaux</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">17</td><td><span class="lang-ar">انخفاض قيمة الأصول الثابتة وإعادة تقييمها (IFRS)</span><span class="lang-fr">Dépréciation et réévaluation des immobilisations (IFRS)</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">18</td><td><span class="lang-ar">التدقيق المالي والرقابة الداخلية</span><span class="lang-fr">Audit financier et contrôle interne</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">19</td><td><span class="lang-ar">كيف تطور خطة عملك (business plan)</span><span class="lang-fr">Comment élaborer votre business plan</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">20</td><td><span class="lang-ar">التدقيق والرقابة الداخلية</span><span class="lang-fr">Audit et contrôle interne</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">21</td><td><span class="lang-ar">تدقيق وظيفة الموارد البشرية</span><span class="lang-fr">Audit de fonction ressources humaines</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">22</td><td><span class="lang-ar">التدقيق المالي والمحاسبي</span><span class="lang-fr">L'audit financier et comptable</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">23</td><td><span class="lang-ar">التدقيق التشغيلي لوظائف الشركة</span><span class="lang-fr">L'audit opérationnel des fonctions de l'entreprise</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">24</td><td><span class="lang-ar">مراقبة التسيير</span><span class="lang-fr">Contrôle de gestion</span></td><td class="text-center">4j</td></tr><tr><td class="text-center">25</td><td><span class="lang-ar">التدقيق الداخلي ومراقبة التسيير</span><span class="lang-fr">L'audit interne et le contrôle de gestion</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">26</td><td><span class="lang-ar">الرقابة الداخلية وإدارة المخاطر</span><span class="lang-fr">Le contrôle interne et la maitrise des risques</span></td><td class="text-center">3j</td></tr></tbody></table></div></div></section>
+       <section id="business-law" class="page-section py-20 bg-red-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-red-700 text-center rtl">قانون الأعمال</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-red-700 text-center ltr">Droit des Affaires Juridique</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">المنازعات الضريبية</span><span class="lang-fr">Le contentieux fiscal</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">2</td><td><span class="lang-ar">إدارة المنازعات في الشركة</span><span class="lang-fr">La gestion du contentieux de l'entreprise</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">3</td><td><span class="lang-ar">إعداد دفتر الشروط</span><span class="lang-fr">L'élaboration des cahiers des charges</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">4</td><td><span class="lang-ar">تحصيل الديون</span><span class="lang-fr">Le recouvrement des créances</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">5</td><td><span class="lang-ar">المخاطر القانونية في الشركة</span><span class="lang-fr">Le risque juridique dans l'entreprise</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">6</td><td><span class="lang-ar">التأمين القانوني للعلاقات التجارية</span><span class="lang-fr">La sécurisation juridique des relations commerciales</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">7</td><td><span class="lang-ar">صياغة عقود الصفقات العمومية</span><span class="lang-fr">Rédaction des contrats de marches publics</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">8</td><td><span class="lang-ar">إدارة المنازعات المصرفية</span><span class="lang-fr">La gestion du contentieux bancaire</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">9</td><td><span class="lang-ar">تقنيات التفاوض على العقود</span><span class="lang-fr">Les techniques de négociation des contrats</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">10</td><td><span class="lang-ar">الصفقات العمومية: التحضير والمناقصة والتسليم</span><span class="lang-fr">Les marches publics : préparation, soumission et passation</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">11</td><td><span class="lang-ar">تقنيات التفاوض على العقود الدولية</span><span class="lang-fr">Les techniques de négociation des contrats internationaux</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">12</td><td><span class="lang-ar">اتفاقيات القروض البنكية</span><span class="lang-fr">Les conventions de crédit bancaire</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">13</td><td><span class="lang-ar">الترقية العقارية: الجوانب القانونية والمالية</span><span class="lang-fr">La promotion immobilière : aspects juridiques & financiers</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">14</td><td><span class="lang-ar">مشاريع الصفقات بالتراضي (gré à gré)</span><span class="lang-fr">Les marches de gré à gré</span></td><td class="text-center">3j</td></tr></tbody></table></div></div></section>
+       <section id="logistics" class="page-section py-20 bg-yellow-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-yellow-700 text-center rtl">الخدمات اللوجستية والنقل</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-yellow-700 text-center ltr">Logistique et Transport</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">عمليات العبور والتخليص الجمركي واللوجستية</span><span class="lang-fr">Opération de transit, dédouanement et logistique</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">2</td><td><span class="lang-ar">الرسوم الجمركية والضرائب</span><span class="lang-fr">Droits et taxes douanières</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">3</td><td><span class="lang-ar">إتقان مصطلحات التجارة الدولية (incoterms 2010)</span><span class="lang-fr">Maitriser les incoterms 2010 dans la logistique internationale</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">4</td><td><span class="lang-ar">أساسيات اتفاقيات النقل البحري الدولي</span><span class="lang-fr">L'essentiel des conventions de transport maritime</span></td><td class="text-center">3j</td></tr><tr><td class="text-center">5</td><td><span class="lang-ar">أساسيات إدارة سلسلة التوريد</span><span class="lang-fr">Supply Chain management ; les essentiels</span></td><td class="text-center">5j</td></tr><tr><td class="text-center">6</td><td><span class="lang-ar">تقنيات الشراء والتفاوض للشحن البحري</span><span class="lang-fr">Les techniques d'achat et de négociation du fret maritime</span></td><td class="text-center">3j</td></tr></tbody></table></div></div></section>
+       <section id="others" class="page-section py-20 bg-indigo-50"><div class="container mx-auto px-4"><h2 class="lang-ar font-ar text-4xl font-bold mb-12 text-indigo-700 text-center rtl">أخرى</h2><h2 class="lang-fr font-fr text-4xl font-bold mb-12 text-indigo-700 text-center ltr">Autres</h2><div class="overflow-x-auto course-table-wrapper bg-white rounded-lg shadow-md p-4 md:p-6"><table class="course-table"><thead><tr><th class="w-1/12"><span class="lang-ar">رقم</span><span class="lang-fr">N°</span></th><th class="w-8/12"><span class="lang-ar">الموضوع</span><span class="lang-fr">Thème</span></th><th class="w-3/12"><span class="lang-ar">المدة</span><span class="lang-fr">Durée</span></th></tr></thead><tbody><tr><td class="text-center">1</td><td><span class="lang-ar">الإسعافات الأولية: الخطوات المنقذة للحياة</span><span class="lang-fr">Secourisme : les gestes qui sauvent</span></td><td class="text-center">3j</td></tr></tbody></table></div></div></section>
+       <footer class="bg-gray-800 text-white py-12"><div class="container mx-auto px-4"><div class="lang-ar rtl"><div class="flex flex-col md:flex-row justify-between items-center text-center md:text-right"><div class="mb-6 md:mb-0"><h3 class="text-2xl font-bold mb-3">معهد التدريب المتخصص</h3><p class="text-gray-400">تدريب احترافي لبناء مستقبل مهني ناجح</p></div><div class="mb-6 md:mb-0"><p class="mb-2">للتواصل والاستفسار:</p><p class="mb-1"><i class="fas fa-phone ml-2"></i>هاتف: 123-456-789</p><p><i class="fas fa-envelope ml-2"></i>البريد: info@formatec.com</p></div></div><div class="mt-10 text-center text-gray-500 text-sm"><p>© 2023 معهد التدريب المتخصص. جميع الحقوق محفوظة</p></div></div><div class="lang-fr ltr"><div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left"><div class="mb-6 md:mb-0"><h3 class="text-2xl font-bold mb-3">FORMATEC INSTITUT</h3><p class="text-gray-400">Formation professionnelle pour construire votre avenir</p></div><div class="mb-6 md:mb-0"><p class="mb-2">Contact et renseignements:</p><p class="mb-1"><i class="fas fa-phone mr-2"></i>Tél: 123-456-789</p><p><i class="fas fa-envelope mr-2"></i>Email: info@formatec.com</p></div></div><div class="mt-10 text-center text-gray-500 text-sm"><p>© 2023 FORMATEC INSTITUT. Tous droits réservés</p></div></div></div></footer>
+  </div>
+  <!-- ***** END Content Container ***** -->
+
+  <!-- Language Switcher -->
+  <div id="language-switcher" class="fixed top-4 right-4 bg-white rounded-lg shadow-lg p-2 z-50 hidden">
+    <button id="switch-ar" class="px-3 py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-lg mr-1 md:mr-2 text-sm md:text-base font-ar hover:bg-blue-700 transition">العربية</button>
+    <button id="switch-fr" class="px-3 py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-lg text-sm md:text-base font-fr hover:bg-blue-700 transition">Français</button>
+  </div>
+
+  <!-- JavaScript for interactivity -->
+  <script>
+    // --- Helper Function ---
+    function setLanguage(lang) {
+        console.log(`Setting language to: ${lang}`);
+        const isArabic = lang === 'ar';
+        const arElements = document.querySelectorAll('.lang-ar');
+        const frElements = document.querySelectorAll('.lang-fr');
+        arElements.forEach(el => el.style.display = isArabic ? (el.tagName === 'SPAN' || el.tagName === 'I' ? 'inline' : 'block') : 'none');
+        frElements.forEach(el => el.style.display = !isArabic ? (el.tagName === 'SPAN' || el.tagName === 'I' ? 'inline' : 'block') : 'none');
+        document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+        document.documentElement.lang = lang;
+        document.body.classList.toggle('rtl', isArabic);
+        document.body.classList.toggle('ltr', !isArabic);
+        document.querySelectorAll('.course-table th, .course-table td').forEach(el => {
+            el.style.textAlign = isArabic ? 'right' : 'left';
+            if (el.cellIndex === 0 || el.cellIndex === 2) {
+                el.style.textAlign = 'center';
+            }
+        });
+        console.log('Language display updated.');
+    }
+
+    // --- Main DOMContentLoaded Event Listener ---
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded and parsed.');
+
+      // --- DOM Element Selection ---
+      const languageSelection = document.getElementById('language-selection');
+      const content = document.getElementById('content');
+      const languageSwitcher = document.getElementById('language-switcher');
+      const selectAr = document.getElementById('select-ar');
+      const selectFr = document.getElementById('select-fr');
+      const switchAr = document.getElementById('switch-ar');
+      const switchFr = document.getElementById('switch-fr');
+      const startAr = document.getElementById('start-ar');
+      const startFr = document.getElementById('start-fr');
+
+      // --- Initial Checks ---
+      // Re-checking crucial elements for the language selection process
+      if (!languageSelection || !content || !languageSwitcher || !selectAr || !selectFr) {
+          console.error('Initialization Error: Language selection/content elements not found!');
+          alert('Page failed to load correctly. Please try refreshing.'); // User feedback
+          return;
+      }
+      // Checking other elements is still good practice
+      if (!switchAr || !switchFr || !startAr || !startFr) {
+           console.warn('Warning: Some secondary control elements (switcher/start buttons) not found.');
+      }
+      console.log('Essential elements verified.');
+
+      // --- Intersection Observer Setup ---
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observerCallback = (entries, obs) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const target = entry.target;
+                  console.log(`Element intersecting: ${target.id || target.className}`);
+                  // Apply fade-in to section
+                  target.classList.add('do-fade-in');
+
+                  // Apply specific animations to elements within the section
+                  if (target.id === 'index') {
+                      target.querySelectorAll('.infographic-item:not(.do-scale-in)').forEach((item, index) => {
+                          item.style.animationDelay = `${index * 0.08}s`;
+                          item.classList.add('do-scale-in');
+                      });
+                  } else {
+                      const tableWrapper = target.querySelector('.course-table-wrapper:not(.do-scale-in)');
+                      if (tableWrapper) {
+                          tableWrapper.classList.add('do-scale-in');
+                      }
+                      // Cover animation removed
+                  }
+                  obs.unobserve(target);
+                  console.log(`Unobserving: ${target.id || target.className}`);
+              }
+          });
+      };
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      console.log('Intersection Observer created.');
+
+      // --- Event Listeners ---
+
+       // Initial Language Selection Handler (Simplified and Direct)
+       const setupLanguageAndContent = (lang) => {
+           console.log(`Setup for language: ${lang}`);
+           if (languageSelection) languageSelection.style.display = 'none';
+           if (content) content.classList.remove('hidden');
+           if (languageSwitcher) languageSwitcher.style.display = 'block';
+
+           setLanguage(lang); // Apply language styles
+
+           // Start observing sections AFTER content is definitely visible
+           setTimeout(() => {
+               console.log('Starting observation...');
+               const sections = document.querySelectorAll('#content .page-section');
+               if (sections.length > 0) {
+                   sections.forEach(section => {
+                       // Check visibility and either trigger or observe
+                       const rect = section.getBoundingClientRect();
+                       if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                           console.log(`Direct trigger for: ${section.id}`);
+                           observerCallback([{ target: section, isIntersecting: true, boundingClientRect: rect }], observer);
+                       } else {
+                           console.log(`Observing: ${section.id}`);
+                           observer.observe(section);
+                       }
+                   });
+               } else {
+                   console.warn('No sections found to observe in #content.');
+               }
+           }, 50); // Short delay
+       };
+
+       // --- Attaching Event Listeners ---
+       if(selectAr) {
+           selectAr.addEventListener('click', () => {
+               console.log('Arabic button clicked');
+               setupLanguageAndContent('ar');
+           });
+       } else { console.error("Arabic select button not found"); }
+
+       if(selectFr) {
+           selectFr.addEventListener('click', () => {
+               console.log('French button clicked');
+               setupLanguageAndContent('fr');
+           });
+       } else { console.error("French select button not found"); }
+
+
+      // Language Switcher Buttons
+      if(switchAr) switchAr.addEventListener('click', () => setLanguage('ar'));
+      if(switchFr) switchFr.addEventListener('click', () => setLanguage('fr'));
+
+      // Start Browsing Buttons
+      const scrollToIdx = (e) => {
+          e.preventDefault();
+          const indexSection = document.getElementById('index');
+          if (indexSection) {
+              indexSection.scrollIntoView({ behavior: 'smooth' });
+              console.log('Scrolling to index section.');
+          } else {
+              console.error('Index section (#index) not found for scrolling.');
+          }
+      };
+      if(startAr) startAr.addEventListener('click', scrollToIdx);
+      if(startFr) startFr.addEventListener('click', scrollToIdx);
+
+
+      // Smooth Scroll for Index Links
+      document.querySelectorAll('#index .infographic-item a').forEach(link => {
+         link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href')?.substring(1);
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    console.error(`Target element #${targetId} not found for scrolling.`);
+                }
+            }
+          });
+       });
+
+      console.log('Event listeners potentially attached.'); // Changed log message
+    });
+  </script>
+</body>
+</html>
